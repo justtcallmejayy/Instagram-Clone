@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <h1>Instagram</h1>
+      </div>
+      <div class="header-icons">
+        <span class="icon">🏠</span>
+        <span class="icon">🔍</span>
+        <span class="icon">➕</span>
+        <span class="icon">💬</span>
+        <span class="icon">❤️</span>
+        <span class="icon">👤</span>
+      </div>
+    </header>
+
+    <!-- Jay remember to change the Profile section from the instagram page by updating the json file  -->
+    <!-- Profile Section -->
+    <section class="profile">
+      <div class="profile-header">
+        <img class="profile-img" src="<%= data.profilePicture %>" alt="Profile Picture" />
+        <div class="profile-info">
+          <h2>@<%= data.name %></h2>
+          <p><strong><%= data.followers %></strong> Followers | <strong><%= data.following %></strong> Following</p>
+          <button class="follow-btn">Follow</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Also jay remember to add more data to this json file so that the clone can be looked just as same -->
+    <!-- User Posts -->
+    <section class="posts">
+      <% for (let p of data.posts) { %>
+        <div class="post">
+          <img class="post-img" src="<%= p.image %>" alt="Post image" />
+          <div class="post-info">
+            <div class="interaction-icons">
+              <span class="icon">❤️</span>
+              <span class="icon">💬</span>
+              <span class="icon">🔗</span>
+            </div>
+            <p class="post-stats">Likes: <%= p.likes %> | Comments: <%= p.comments %></p>
+          </div>
+        </div>
+      <% } %>
+    </section>
+  </body>
+</html>
