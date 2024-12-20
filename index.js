@@ -74,6 +74,12 @@ app.use((error, req, res, next) => {
   res.status(status).render("error.ejs", { status, message });
 });
 
+// Below is the code for main page
+app.get("/main", (req, res) => {
+  res.render("main.ejs");
+});
+
+
 app.listen(port, () => {
   console.log(`Server at http://localhost:${port}`);
 });
