@@ -7,13 +7,14 @@ const path = require("path");
 // Json data for instagram from backend
 
 const port = 8080;
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/public/css")));
+app.use(express.static(path.join(__dirname, "/public/js")));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
 
 // Using EJS with view engine
-app.get("/", (req, res) => {
+app.get("/instagram", (req, res) => {
   //res.send("This is a Home ROOT!");
   res.render("home.ejs");
 });
@@ -33,16 +34,19 @@ app.get("/", (req, res) => {
 // });
 
 // Code for creating a new instagram JSON DATA Rendering
-app.get("/ig/:username", (req, res) => {
-  let { username } = req.params;
+
+// Route for Instagram clone user profile
+app.get("/ig/:username", (req, res, next) => {
+  const { username } = req.params;
   const instaData = require("./data.json");
   const data = instaData[username];
+
   if (data) {
-    console.log(data);
     res.render("instagram.ejs", { data });
   } else {
-    console.log("No such user exists");
-    res.render("error.ejs");
+    const error = new Error(`User "${username}" not found.`);
+    error.status = 404;
+    next(error);
   }
 });
 
@@ -54,9 +58,24 @@ app.get("/rolldice", (req, res) => {
   res.render("rolldice.ejs", { dataBaseValue });
 });
 
+// Middleware for handling 404 errors
+app.use((req, res, next) => {
+  const error = new Error("Page Not Found");
+  error.status = 404;
+  next(error);
+});
+
+// Error-handling middleware for all types of errors
+app.use((error, req, res, next) => {
+  const status = error.status || 500;
+  const message = error.message || "Internal Server Error";
+
+  console.error(`[${status}] ${message}`);
+  res.status(status).render("error.ejs", { status, message });
+});
+
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-  console.log("app is Listening");
+  console.log(`Server at http://localhost:${port}`);
 });
 
 // About.ejs
