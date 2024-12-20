@@ -3,54 +3,93 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Instagram</title>
+    <title>Instagram Clone</title>
+
+    <!-- Link for the page icon -->
+    <link
+      rel="icon"
+      href="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+      type="image/png"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <!-- Header -->
-    <header class="header">
-      <div class="logo">
-        <h1>Instagram</h1>
-      </div>
-      <div class="header-icons">
-        <span class="icon">🏠</span>
-        <span class="icon">🔍</span>
-        <span class="icon">➕</span>
-        <span class="icon">💬</span>
-        <span class="icon">❤️</span>
-        <span class="icon">👤</span>
+    <header class="bg-white shadow-sm py-3 mb-4">
+      <div class="container d-flex justify-content-between align-items-center">
+        <h1 class="text-primary fw-bold">Instagram</h1>
+        <div>
+          <button class="btn btn-outline-primary me-2">Search</button>
+          <button class="btn btn-primary">Profile</button>
+        </div>
       </div>
     </header>
 
-    <!-- Jay remember to change the Profile section from the instagram page by updating the json file  -->
     <!-- Profile Section -->
-    <section class="profile">
-      <div class="profile-header">
-        <img class="profile-img" src="<%= data.profilePicture %>" alt="Profile Picture" />
-        <div class="profile-info">
-          <h2>@<%= data.name %></h2>
-          <p><strong><%= data.followers %></strong> Followers | <strong><%= data.following %></strong> Following</p>
-          <button class="follow-btn">Follow</button>
+    <section class="container bg-light rounded-3 shadow p-4 mb-4">
+      <div class="d-flex align-items-center">
+        <img
+          class="rounded-circle me-4"
+          src="<%= data.profilePicture %>"
+          alt="Profile Picture"
+          width="100"
+          height="100"
+        />
+        <div>
+          <h2 class="fw-bold">@<%= data.name %></h2>
+          <p>
+            <strong><%= data.followers %></strong> Followers |
+            <strong><%= data.following %></strong> Following
+          </p>
+          <button class="btn btn-primary">Follow</button>
         </div>
       </div>
     </section>
 
-    <!-- Also jay remember to add more data to this json file so that the clone can be looked just as same -->
-    <!-- User Posts -->
-    <section class="posts">
-      <% for (let p of data.posts) { %>
-        <div class="post">
-          <img class="post-img" src="<%= p.image %>" alt="Post image" />
-          <div class="post-info">
-            <div class="interaction-icons">
-              <span class="icon">❤️</span>
-              <span class="icon">💬</span>
-              <span class="icon">🔗</span>
+    <!-- Posts Section -->
+    <section class="container">
+      <div class="row gy-4">
+        <% for (let p of data.posts) { %>
+        <div class="col-md-4">
+          <div class="card shadow-sm h-100">
+            <img src="<%= p.image %>" class="card-img-top" alt="Post image" />
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <span class="text-danger">❤️</span>
+                <span>💬</span>
+                <span>🔗</span>
+              </div>
+              <p class="mt-2">
+                Likes: <%= p.likes %> | Comments: <%= p.comments %>
+              </p>
             </div>
-            <p class="post-stats">Likes: <%= p.likes %> | Comments: <%= p.comments %></p>
           </div>
         </div>
-      <% } %>
+        <% } %>
+      </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+      &copy; 2024 Instagram
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/app.js" defer></script>
   </body>
 </html>
